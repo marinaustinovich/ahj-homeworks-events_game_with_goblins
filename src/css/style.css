@@ -1,5 +1,5 @@
 :root {
-  --cell-size: 64px;
+  --cell-size: 100px;
 }
 
 html, body {
@@ -95,6 +95,8 @@ body {
 
 .character.generic {
   background-image: url('../img/goblin_small.png');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .cell.selected::before {

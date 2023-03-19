@@ -33,11 +33,11 @@ export default class GameController {
 
   onCellEnter(index) {
     if (document.querySelector('.selected-yellow')) {
-      this.gamePlay.deselectCell(this.indexSelect.red);
+      this.gamePlay.deselectCell(this.indexSelect.yellow);
     }
 
     this.gamePlay.selectCell(index);
-    this.indexSelect.red = index;
+    this.indexSelect.yellow = index;
     this.gamePlay.setCursor(cursors.pointer);
   }
 
