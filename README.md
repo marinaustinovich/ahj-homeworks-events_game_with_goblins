@@ -1,6 +1,6 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/o2iahyyooqf1yg0y/branch/main?svg=true)](https://ci.appveyor.com/project/marinaustinovich/ahj-homeworks-events-game-with-goblins/branch/main)
 
-
+deployment: https://marinaustinovich.github.io/ahj-homeworks-events_game_with_goblins/
 ### Игра с гоблинами
 
 ![](./pic/GracefulMiniatureBustard-small.gif)
