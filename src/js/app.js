@@ -1,5 +1,5 @@
-import GamePlay from './GamePlay';
-import GameController from './GameController';
+import GamePlay from './components/GamePlay/GamePlay';
+import GameController from './components/GameController/GameController';
 
 /* eslint-disable */
 console.log('it works!');

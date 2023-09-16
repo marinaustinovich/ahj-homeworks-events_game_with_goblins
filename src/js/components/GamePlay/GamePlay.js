@@ -1,5 +1,7 @@
-import calcTileType from './utils';
-import showModal from './modal';
+import calcTileType from '../../utils/calcTileType';
+import Modal from '../Modal/Modal';
+
+import './game-play.css';
 
 export default class GamePlay {
   constructor(boardSize) {
@@ -10,6 +12,9 @@ export default class GamePlay {
     this.cellClickListeners = [];
     this.cellEnterListeners = [];
     this.cellLeaveListeners = [];
+    this.isModal = false;
+
+    this.initModalListener();
   }
 
   bindToDOM(container) {
@@ -17,6 +22,18 @@ export default class GamePlay {
       throw new Error('container is not HTMLElement');
     }
     this.container = container;
+  }
+
+  initModalListener() {
+    document.addEventListener('click', (e) => {
+      if (
+        e.target.dataset.handler === 'modalHandlerCancel'
+        && this.currentModal
+      ) {
+        this.currentModal.hide();
+        this.isModal = false;
+      }
+    });
   }
 
   drawUi(theme) {
@@ -33,7 +50,11 @@ export default class GamePlay {
     this.boardEl.classList.add(theme);
     for (let i = 0; i < this.boardSize ** 2; i += 1) {
       const cellEl = document.createElement('div');
-      cellEl.classList.add('cell', 'map-tile', `map-tile-${calcTileType(i, this.boardSize)}`);
+      cellEl.classList.add(
+        'cell',
+        'map-tile',
+        `map-tile-${calcTileType(i, this.boardSize)}`,
+      );
       cellEl.addEventListener('mouseenter', (event) => this.onCellEnter(event));
       cellEl.addEventListener('mouseleave', (event) => this.onCellLeave(event));
       cellEl.addEventListener('click', (event) => this.onCellClick(event));
@@ -91,8 +112,9 @@ export default class GamePlay {
 
   deselectCell(index) {
     const cell = this.cells[index];
-    cell.classList.remove(...Array.from(cell.classList)
-      .filter((o) => o.startsWith('selected')));
+    cell.classList.remove(
+      ...Array.from(cell.classList).filter((o) => o.startsWith('selected')),
+    );
   }
 
   hideCellTooltip(index) {
@@ -109,7 +131,28 @@ export default class GamePlay {
     }
   }
 
-  static showMessage(message, unicode) {
-    showModal(message, unicode);
+  showModalMessage(message, unicode) {
+    if (!this.isModal) {
+      this.isModal = true;
+      this.showModal(message, unicode);
+    }
+  }
+
+  showModal(message, unicode) {
+    const modal = new Modal({
+      title: message,
+      content: `&#${unicode}`,
+      footerButtons: [
+        {
+          class: 'btn btn__cancel',
+          text: 'Close',
+          handler: 'modalHandlerCancel',
+        },
+      ],
+    });
+
+    this.currentModal = modal;
+
+    modal.show();
   }
 }

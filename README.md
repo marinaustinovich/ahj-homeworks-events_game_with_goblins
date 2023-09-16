@@ -1,9 +1,11 @@
+
+### Игра с гоблинами
+
 [![Build status](https://ci.appveyor.com/api/projects/status/o2iahyyooqf1yg0y/branch/main?svg=true)](https://ci.appveyor.com/project/marinaustinovich/ahj-homeworks-events-game-with-goblins/branch/main)
 
 deployment: https://marinaustinovich.github.io/ahj-homeworks-events_game_with_goblins/
-### Игра с гоблинами
 
-![](./pic/GracefulMiniatureBustard-small.gif)
+![](./src/img/GracefulMiniatureBustard-small.gif)
 
 #### Легенда
 
@@ -13,4 +15,4 @@ deployment: https://marinaustinovich.github.io/ahj-homeworks-events_game_with_go
     * гоблин пропадает из ячейки.
 3. Если пользователь пропустил 5 появлений гоблинов, игра завершается.
 
-Всё собирается через Webpack и выкладываться на GitHub Pages через CI.
+
