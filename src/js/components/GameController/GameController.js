@@ -1,12 +1,12 @@
 import createPosition from '../../utils/createPosition';
 import cursors from '../../cursors';
+import ClickCounter from '../ClickCounter/ClickCounter';
 
 export default class GameController {
   constructor(gamePlay) {
     this.gamePlay = gamePlay;
     this.indexSelect = null;
-    this.countSuccessCLick = 0;
-    this.countNotSuccessCLick = 0;
+    this.clickCounter = null;
     this.onCellClick = this.onCellClick.bind(this);
     this.onCellEnter = this.onCellEnter.bind(this);
     this.onCellLeave = this.onCellLeave.bind(this);
@@ -15,6 +15,7 @@ export default class GameController {
   init() {
     this.events();
     this.gamePlay.drawUi('prairie');
+    this.clickCounter = new ClickCounter(document.querySelector('#game-container'));
     this.showCharacter();
   }
 
@@ -62,15 +63,15 @@ export default class GameController {
     const isGoblin = boardCellClick.querySelector('.generic');
 
     if (isGoblin) {
-      this.countSuccessCLick += 1;
+      this.clickCounter.incrementHit();
 
-      if (this.countSuccessCLick >= 10) {
-        this.gamePlay.showModalMessage(`You win! Your points are ${this.countSuccessCLick}`, '127881');
+      if (this.clickCounter.getHitCount() >= 10) {
+        this.gamePlay.showModalMessage(`You win! Your points are ${this.clickCounter.getHitCount()}`, '127881');
         this.reset();
       }
     } else {
-      this.countNotSuccessCLick += 1;
-      if (this.countNotSuccessCLick >= 5) {
+      this.clickCounter.incrementMiss();
+      if (this.clickCounter.getMissCount() >= 5) {
         this.gamePlay.showModalMessage('You lose!', '129335');
         this.reset();
       }
@@ -78,7 +79,6 @@ export default class GameController {
   }
 
   reset() {
-    this.countNotSuccessCLick = 0;
-    this.countSuccessCLick = 0;
+    this.clickCounter.reset();
   }
 }
